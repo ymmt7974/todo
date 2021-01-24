@@ -1,3 +1,7 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+# ログイン、ログアウトだけを使う場合
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
