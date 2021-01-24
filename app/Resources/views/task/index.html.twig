@@ -1,39 +1,50 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Task List{% endblock %}
+
 {% block body %}
-    <h1>Tasks list</h1>
-
-    <table>
-        <thead>
+<div class="container">
+  <div class="col-sm-offset-2 col-sm-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Current Tasks
+      </div>
+      <div class="panel-body">
+        <table id="task-table" class="table table-striped">
+          <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
+              <th>Task</th>
+              <th class="action">Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
+          </thead>
+          <tbody>
+            {% for task in tasks %}
             <tr>
-                <td><a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.id }}</a></td>
-                <td>{{ task.name }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('task_show', { 'id': task.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('task_edit', { 'id': task.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+              <td>
+                {# リンク先を編集画面にする #}
+                <a href="{{ path('task_edit', { 'id': task.id }) }}">
+                  {{ task.name }}
+                </a>
+              </td>
+              <td class="action">
+                {# TODO一覧で削除出来るようFormを追加 #}
+                <form action="{{ path('task_delete', {'id': task.id}) }}" method="post">
+                  {# HTTPのDELETEメソッドを指定 #}
+                  <input type="hidden" name="_method" value="DELETE">
+                  {# CSRF対策のトークンを生成 #}
+                  <input type="hidden" name="_token" value="{{ csrf_token('delete_task') }}">
 
-    <ul>
-        <li>
-            <a href="{{ path('task_new') }}">Create a new task</a>
-        </li>
-    </ul>
+                  <input class="btn btn-danger" type="submit" value="Delete"/>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <a class="btn btn-primary" href="{{ path('task_new') }}">Create a new task</a>
+  </div>
+</div>
 {% endblock %}

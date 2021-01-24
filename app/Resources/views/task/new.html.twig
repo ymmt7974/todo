@@ -1,16 +1,22 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Create Task{% endblock %}
+
 {% block body %}
-    <h1>Task creation</h1>
-
-    {{ form_start(form) }}
+<div class="col-sm-offset-2 col-sm-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Create Task
+    </div>
+    <div class="panel-body">
+      {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <input class="btn btn-primary" type="submit" value="Create"/>
+      {{ form_end(form) }}
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('task_index') }}">Back to the list</a>
-        </li>
-    </ul>
+  </div>
+
+  <a class="btn btn-default" href="{{ path('task_index') }}">Back to the list</a>
+</div>
 {% endblock %}
