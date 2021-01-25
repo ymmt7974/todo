@@ -69,6 +69,9 @@ class TaskController extends Controller
      */
     public function editAction(Request $request, Task $task)
     {
+        // 現在ログインしているユーザーが Taskに対して edit権限があるかチェック
+        $this->denyAccessUnlessGranted('edit', $task);
+
         // $deleteForm = $this->createDeleteForm($task);
         $editForm = $this->createForm('AppBundle\Form\TaskType', $task);
         $editForm->handleRequest($request);
@@ -95,6 +98,9 @@ class TaskController extends Controller
      */
     public function deleteAction(Request $request, Task $task)
     {
+        // 現在ログインしているユーザーが Taskに対して delete権限があるかチェック
+        $this->denyAccessUnlessGranted('delete', $task);
+        
         // $form = $this->createDeleteForm($task);
         // $form->handleRequest($request);
 

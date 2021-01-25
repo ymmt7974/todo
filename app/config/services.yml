@@ -33,3 +33,10 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    app.post_voter:
+        class: AppBundle\Security\TaskVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
